@@ -6,12 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from io import StringIO
-import csv
 import xml.etree.ElementTree as ET
 
-
-## check_path():
-## Check that a directory exists and create it if it doesn't
+## hta_make_codesys
+## Refer to README.md for mmore information
 
 def check_path(path):
     """
@@ -23,6 +21,7 @@ def check_path(path):
         except OSError as e:
             print(f"Error creating directory: {e}")
             sys.exit(1)
+
 
 def qc_report(data):
     """
@@ -55,6 +54,7 @@ def process_non_breaking_space(line, use_comma=True):
     # Fix those pesky word boundary commas
     cleaned_line = re.sub(r'(?<=\w),(?=\w)', ', ', cleaned_line) 
     return cleaned_line
+
 
 def cs_df_to_xml(df, xml_file):
     """
@@ -119,23 +119,31 @@ def cs_df_to_xml(df, xml_file):
     error_count = qc_report(data)
     print(f"QC Reported {error_count} warnings/errors.")
 
+
 def main():
     """
-    Scrape the tables from a confluence page and write to a CodeSystem artefact
+    Create an External CodeSystem based on the HTA Confluence templated data in confluence.hl7.org
+    Requires an HL7 account and a valid Personal Access Token for the HTA pages
+    Refer to README.md for mmore information
     """ 
     homedir=os.environ['HOME']
     parser = argparse.ArgumentParser()
     defaultpath=os.path.join(homedir,"data","hta")
-    parser.add_argument("-r", "--csdir", help="cs data folder", default=defaultpath)
+    parser.add_argument("-d", "--csdir", help="local CodeSystem data folder", default=defaultpath)
     parser.add_argument("-n", "--name", help="CodeSystem name", default='clinVarV')
-    parser.add_argument("-p", "--page", help="page number", default='81028287')   
+    parser.add_argument("-p", "--page", help="confluence page id", default='81028287')   
     args = parser.parse_args()
+    # Print the usage statement
+    # parser.print_help()
+    
     ## Create the data path if it doesn't exist
     check_path(args.csdir)
-
-    ## docs for confluence rest API https://docs.atlassian.com/ConfluenceServer/rest/7.19.2/
-    ##  Example: url = f'https://confluence.hl7.org/rest/content/{args.page}'
+    
+    ## Suggested improvement, to use the confluence REST API instead of html.parser page scraping.
+    ## Docs for confluence REST API https://docs.atlassian.com/ConfluenceServer/rest/7.19.2/
+    ##    Example: url = f'https://confluence.hl7.org/rest/content/{args.page}'
     url = f'https://confluence.hl7.org/pages/viewpage.action?pageId={args.page}'
+
     # Get the access token that you set up to access Confluence using a script
     # Read the API token from the 'access.token' file
     # With thanks to Joshua Procious for the hint on how to get past the 403 Forbidden error
