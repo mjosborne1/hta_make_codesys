@@ -32,7 +32,7 @@
   * Q. What should I put in the CodeSystem name?
   * A. The CodeSystem name is used for naming the XML output file and should match 'Short name or abbreviation of the code system name' in the confluence page.
   * Q. Where does the XML output file go?
-  * A. It will be exported to the folder you have used in the --CSDIR or -d parameter, which defaults to `/home/user/data/hta` on Mac, WSL or Linux, where `user` is your user code. On Windows it defaults to `C:\Users\USERNAME\data\hta` where `USERNAME` is your windows user name. Note, This script has not been tested on Windows. You are welcome to fork it, make changes and do a PR against the original repo.
+  * A. It will be exported to the folder you have used in the --CSDIR or -d parameter, which defaults to `/home/user/data/hta` on Mac, WSL or Linux, where `user` is your user code. On Windows it defaults to `C:\Users\USERNAME\data\hta` where `USERNAME` is your windows user name. Note, This script has not been tested on Windows. You are welcome to fork it, make changes and do a PR against the original repo. The file will be named cs_{name}.xml where name comes from the parameter passed into --name or -n.
   
 
 ### Examples
