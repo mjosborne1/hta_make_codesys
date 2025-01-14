@@ -16,6 +16,10 @@
 
 
 ### How to run this script
+* ensure that python3 is the version you are running
+* `cd hta_make_codesys`
+* ensure the virtual environment is set using `source ./.venv/bin/activate`
+* `python main.py` with your parameters as per the examples
  ```
     usage: main.py [-h] [-d CSDIR] [-n NAME] [-p PAGE]
 
@@ -25,7 +29,6 @@
     -n NAME, --name NAME     CodeSystem name
     -p PAGE, --page PAGE     Confluence page id
  ```
-
 ### Questions
   * Q. Where do I get the page id from?
   * A. If you can see the external terminologies pages, click on the one you want to create a code system for example: [HGVS](https://confluence.hl7.org/display/TA/HGVS). If the page id is not displayed in the url bar of your browser, click on the elipsis (top right) and click 'page information'. The pageId will be displayed in the url bar of your browser. e.g. https://confluence.hl7.org/pages/viewinfo.action?pageId=82905383 
